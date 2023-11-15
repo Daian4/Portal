@@ -1,6 +1,6 @@
 const knex = require("../../database/connection");
 
-const createTicket= async (req, res) => {
+const createTicket = async (req, res) => {
   const { title, description, status } = req.body;
   const { user } = req;
 
@@ -87,8 +87,37 @@ const getcomments = async (req, res) => {
 
     return res.status(200).json(query);
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ mensagem: "erro interno do servidor" });
   }
 };
-module.exports = { createTicket, createComment, updateTicket, getcomments };
+
+const getTickets = async (req, res) => {
+  const {user} = req;
+
+  try {
+    const query = await knex("tickets").where("user_id", user.id);
+
+    return res.status(200).json(query);
+  } catch (error) {
+    return res.status(500).json({ mensagem: "erro interno do servidor" });
+  } 
+}
+
+const getTicket = async (req, res) => {
+  const {user} = req;
+  const {id} = req.params
+
+  try {
+    const query = await knex("tickets").where("user_id", user.id).where('id', id).first()
+    
+    if(!query){
+      return res.status(404).json({mensagem: "Não encontrado"})
+    }
+
+    return res.status(200).json(query);
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({ mensagem: "erro interno do servidor" });
+  } 
+}
+module.exports = { createTicket, createComment, updateTicket, getcomments, getTickets, getTicket };

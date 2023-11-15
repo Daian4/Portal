@@ -4,6 +4,8 @@ const {
   createComment,
   updateTicket,
   getcomments,
+  getTickets,
+  getTicket,
 } = require("./controllers/serviceDesk ");
 const { registerUser, login, getUser } = require("./controllers/users");
 const checkLogin = require("./middlewares/authorization");
@@ -23,5 +25,7 @@ router.post("/tickets", validateTicket, createTicket);
 router.post("/tickets/:id/comments", createComment);
 router.put("/tickets/:id", updateTicket);
 router.get("/tickets/:id/comments", getcomments);
+router.get("/tickets", getTickets);
+router.get("/tickets/:id", getTicket)
 
 module.exports = router;
