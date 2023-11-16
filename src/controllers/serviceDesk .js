@@ -37,6 +37,12 @@ const createComment = async (req, res) => {
   }
 
   try {
+    const queryCheckUser = await knex("tickets").where("user_id", user.id).where("id", id);
+
+    if(!queryCheckUser.length){
+      return res.status(404).json({mensagem: "Ticket não encontrado"})
+    }
+
     const query = await knex("comments")
       .insert({
         message,
@@ -54,12 +60,20 @@ const createComment = async (req, res) => {
 const updateTicket = async (req, res) => {
   const { status } = req.body;
   const { id } = req.params;
+  const { user } = req;
 
   if (!status) {
     return res.status(400).json({ mensagem: "status obrigatório!" });
   }
 
   try {
+    const queryCheckUser = await knex("tickets")
+      .where("user_id", user.id)
+      .where("id", id);
+
+    if (!queryCheckUser.length) {
+      return res.status(404).json({ mensagem: "Ticket não encontrado" });
+    }
     const query = await knex("comments")
       .count("id")
       .where("ticket_id", id)
@@ -81,9 +95,10 @@ const updateTicket = async (req, res) => {
 };
 
 const getcomments = async (req, res) => {
+  const { user } = req;
   const { id } = req.params;
   try {
-    const query = await knex("comments").where("ticket_id", id);
+    const query = await knex("comments").where("user_id", user.id).where("ticket_id", id);
 
     return res.status(200).json(query);
   } catch (error) {
@@ -92,7 +107,7 @@ const getcomments = async (req, res) => {
 };
 
 const getTickets = async (req, res) => {
-  const {user} = req;
+  const { user } = req;
 
   try {
     const query = await knex("tickets").where("user_id", user.id);
@@ -100,24 +115,34 @@ const getTickets = async (req, res) => {
     return res.status(200).json(query);
   } catch (error) {
     return res.status(500).json({ mensagem: "erro interno do servidor" });
-  } 
-}
+  }
+};
 
 const getTicket = async (req, res) => {
-  const {user} = req;
-  const {id} = req.params
+  const { user } = req;
+  const { id } = req.params;
 
   try {
-    const query = await knex("tickets").where("user_id", user.id).where('id', id).first()
-    
-    if(!query){
-      return res.status(404).json({mensagem: "Não encontrado"})
+    const query = await knex("tickets")
+      .where("user_id", user.id)
+      .where("id", id)
+      .first();
+
+    if (!query) {
+      return res.status(404).json({ mensagem: "Não encontrado" });
     }
 
     return res.status(200).json(query);
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return res.status(500).json({ mensagem: "erro interno do servidor" });
-  } 
-}
-module.exports = { createTicket, createComment, updateTicket, getcomments, getTickets, getTicket };
+  }
+};
+module.exports = {
+  createTicket,
+  createComment,
+  updateTicket,
+  getcomments,
+  getTickets,
+  getTicket,
+};
