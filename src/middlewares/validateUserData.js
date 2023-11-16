@@ -40,7 +40,7 @@ const validateUserDataFields = (req, res, next) => {
   next();
 };
 
-const  validateTicket= (req, res, next) => {
+const validateTicket = (req, res, next) => {
   const bodyData = req.body;
   const mandatoryFields = ["title", "description", "status"];
 
@@ -61,4 +61,8 @@ const  validateTicket= (req, res, next) => {
   next();
 };
 
-module.exports = { validateUserDataFields, validateEmailAndPasswordFields, validateTicket };
+module.exports = {
+  validateUserDataFields,
+  validateEmailAndPasswordFields,
+  validateTicket,
+};

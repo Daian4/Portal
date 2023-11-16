@@ -22,7 +22,6 @@ const createTicket = async (req, res) => {
 
     return res.status(201).json({ mensagem: "solicitação enviada!" });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ mensagem: "Erro interno do servidor" });
   }
 };
@@ -37,10 +36,12 @@ const createComment = async (req, res) => {
   }
 
   try {
-    const queryCheckUser = await knex("tickets").where("user_id", user.id).where("id", id);
+    const queryCheckUser = await knex("tickets")
+      .where("user_id", user.id)
+      .where("id", id);
 
-    if(!queryCheckUser.length){
-      return res.status(404).json({mensagem: "Ticket não encontrado"})
+    if (!queryCheckUser.length) {
+      return res.status(404).json({ mensagem: "Ticket não encontrado" });
     }
 
     const query = await knex("comments")
@@ -98,7 +99,9 @@ const getcomments = async (req, res) => {
   const { user } = req;
   const { id } = req.params;
   try {
-    const query = await knex("comments").where("user_id", user.id).where("ticket_id", id);
+    const query = await knex("comments")
+      .where("user_id", user.id)
+      .where("ticket_id", id);
 
     return res.status(200).json(query);
   } catch (error) {
@@ -134,7 +137,6 @@ const getTicket = async (req, res) => {
 
     return res.status(200).json(query);
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ mensagem: "erro interno do servidor" });
   }
 };
