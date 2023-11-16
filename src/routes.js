@@ -6,7 +6,7 @@ const {
   getcomments,
   getTickets,
   getTicket,
-} = require("./controllers/serviceDesk ");
+} = require("./controllers/serviceDesk ")
 const { registerUser, login, getUser } = require("./controllers/users");
 const checkLogin = require("./middlewares/authorization");
 const {
