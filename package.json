@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./src/index.js",
+    "start": "node ./src/index.js",
     "db:migrate": "node scripts/migration.js",
-    "dev": "nodemon ./src/index.js"
+    "dev": "node ./src/index.js"
   },
   "keywords": [],
   "author": "",
