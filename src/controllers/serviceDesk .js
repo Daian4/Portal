@@ -99,12 +99,27 @@ const getcomments = async (req, res) => {
   const { user } = req;
   const { id } = req.params;
   try {
-    const query = await knex("comments")
+    const query = await knex("comments").join('users', 'users.id', '=', 'comments.user_id')
       .where("user_id", user.id)
-      .where("ticket_id", id);
+      .where("ticket_id", id).returning('*')
 
-    return res.status(200).json(query);
+
+      const data = query.map((q) => {
+        return {
+          id: q.id,
+          ticket_id: q.ticket_id,
+          message: q.message,
+          date_creation: q.date_creation,
+          user: {
+            name: q.name,
+            image: q.image
+          }
+        }
+      })
+
+    return res.status(200).json(data);
   } catch (error) {
+    console.log(error)
     return res.status(500).json({ mensagem: "erro interno do servidor" });
   }
 };
