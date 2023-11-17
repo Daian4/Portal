@@ -33,8 +33,9 @@ Este projeto foi desenvolvido em resposta ao desafio proposto pela Normalabs, co
 
 <br>
 
+---
 ### **Atenção!:** O usuário deverá ser identificado através do ID presente no token de autenticação.
-
+---
 <br>
 
 **Detalhar Usuário:** `GET /users` - informações básicas do usuário.
@@ -150,7 +151,7 @@ Este projeto foi desenvolvido em resposta ao desafio proposto pela Normalabs, co
 
 ---
 ## Como Usar:
----
+
 ## Requisitos
 
 - [Node.js](https://nodejs.org/)
