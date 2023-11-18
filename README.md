@@ -184,6 +184,13 @@ npm install
 ```bash
 npm run start
 ```
+6. Credenciais de teste
+```bash
+{
+	"email": "joana@localhost.com",
+	"password": "123456"
+}
+```
 ## Contribuições
 
 Contribuições são bem-vindas! Sinta-se à vontade para abrir um problema ou enviar um pull request.
