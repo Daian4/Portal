@@ -187,7 +187,7 @@ npm run start
 6. Credenciais de teste
 ```bash
 {
-	"email": "joana@localhost.com",
+	"email": "carlos@localhost.com",
 	"password": "123456"
 }
 ```
