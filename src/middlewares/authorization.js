@@ -26,7 +26,7 @@ const checkLogin = async (req, res, next) => {
 
     next();
   } catch (error) {
-    return res.status(400).json({ mensagem: "Não autorizado" });
+    return res.status(401).json({ mensagem: "Não autorizado" });
   }
 };
 

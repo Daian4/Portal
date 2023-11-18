@@ -20,7 +20,7 @@ const createTicket = async (req, res) => {
         .json({ mensagem: "Não foi possível enviar solicitação" });
     }
 
-    return res.status(201).json({ mensagem: "solicitação enviada!" });
+    return res.status(201).json(newRequest[0]);
   } catch (error) {
     return res.status(500).json({ mensagem: "Erro interno do servidor" });
   }
@@ -52,7 +52,24 @@ const createComment = async (req, res) => {
       })
       .returning("*");
 
-    return res.status(201).json(query);
+    const queryJoin = await knex("comments")
+      .join("users", "users.id", "=", "comments.user_id")
+      .where("comments.id", query[0].id)
+      .returning("*");
+
+    const data = queryJoin.map((q) => {
+      return {
+        id: q.id,
+        ticket_id: q.ticket_id,
+        message: q.message,
+        date_creation: q.date_creation,
+        user: {
+          name: q.name,
+          image: q.image,
+        },
+      };
+    });
+    return res.status(201).json(data[0]);
   } catch (error) {
     return res.status(500).json({ mensagem: "erro interno do servidor" });
   }
@@ -99,27 +116,28 @@ const getcomments = async (req, res) => {
   const { user } = req;
   const { id } = req.params;
   try {
-    const query = await knex("comments").join('users', 'users.id', '=', 'comments.user_id')
+    const query = await knex("comments")
+      .join("users", "users.id", "=", "comments.user_id")
       .where("user_id", user.id)
-      .where("ticket_id", id).returning('*')
+      .where("ticket_id", id)
+      .returning("*");
 
-
-      const data = query.map((q) => {
-        return {
-          id: q.id,
-          ticket_id: q.ticket_id,
-          message: q.message,
-          date_creation: q.date_creation,
-          user: {
-            name: q.name,
-            image: q.image
-          }
-        }
-      })
+    const data = query.map((q) => {
+      return {
+        id: q.id,
+        ticket_id: q.ticket_id,
+        message: q.message,
+        date_creation: q.date_creation,
+        user: {
+          name: q.name,
+          image: q.image,
+        },
+      };
+    });
 
     return res.status(200).json(data);
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return res.status(500).json({ mensagem: "erro interno do servidor" });
   }
 };

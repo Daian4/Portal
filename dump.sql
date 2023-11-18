@@ -1,5 +1,5 @@
 CREATE TABLE users (
-	  id serial primary key,
+	  id INTEGER primary key,
   	name varchar(150) not null,
   	email text not null unique,
   	phone text not null,
@@ -8,7 +8,7 @@ CREATE TABLE users (
 );
 
 CREATE TABLE tickets (
-  id serial PRIMARY KEY,
+  id INTEGER PRIMARY KEY,
   user_id integer not null REFERENCES users(id),
   title VARCHAR(255) not null,
   description TEXT not null,
@@ -18,7 +18,7 @@ CREATE TABLE tickets (
 );
 
 CREATE TABLE comments (
-  id serial PRIMARY KEY,
+  id INTEGER PRIMARY KEY,
   ticket_id INTEGER REFERENCES tickets(id),
   user_id INTEGER REFERENCES users(id),
   message TEXT not null,
