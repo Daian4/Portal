@@ -3,8 +3,8 @@ CREATE TABLE users (
   	name varchar(150) not null,
   	email text not null unique,
   	phone text not null,
-  	password text not null,
-  	image text
+  	password text not null
+  	
 );
 
 CREATE TABLE tickets (

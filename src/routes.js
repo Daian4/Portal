@@ -19,7 +19,6 @@ const multer = require("./multer");
 
 router.post(
   "/register",
-  multer.single("image"),
   validateUserDataFields,
   registerUser
 );
