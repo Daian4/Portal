@@ -64,8 +64,7 @@ const createComment = async (req, res) => {
         message: q.message,
         date_creation: q.date_creation,
         user: {
-          name: q.name,
-          image: q.image,
+          name: q.name
         },
       };
     });
@@ -129,8 +128,7 @@ const getcomments = async (req, res) => {
         message: q.message,
         date_creation: q.date_creation,
         user: {
-          name: q.name,
-          image: q.image,
+          name: q.name
         },
       };
     });
