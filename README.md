@@ -1,6 +1,6 @@
 # **Portal Central - Desafio Normalabs**
 
-Este projeto foi desenvolvido em resposta ao desafio proposto pela Normalabs, com o objetivo de criar um portal responsivo para dispositivos móveis. O portal oferece diversas funcionalidades por meio de rotas específicas.
+Este projeto foi desenvolvido com o objetivo de criar um portal responsivo para dispositivos móveis. O portal oferece diversas funcionalidades por meio de rotas específicas.
 
 ## Funcionalidades
 **Cadastrar Usuário:** `POST /register` - Cadastra um novo usuário, incluindo upload de imagem de perfil.
